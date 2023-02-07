@@ -3,7 +3,7 @@
 namespace App\Repositories\Note;
 
 use App\Models\Note;
-use App\Repositories\Admins\NoteInterface;
+use App\Repositories\Note\NoteInterface;
 
 class NoteRepositoryEloquent implements NoteInterface
 {

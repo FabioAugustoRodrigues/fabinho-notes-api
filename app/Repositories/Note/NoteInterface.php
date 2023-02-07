@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Admins;
+namespace App\Repositories\Note;
 
 use App\Models\Note;
 
