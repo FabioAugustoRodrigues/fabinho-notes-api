@@ -18,7 +18,9 @@ class NoteService
     public function store(array $data)
     {
         $this->validateNote($data);
-        
+
+        $data["slug"] = $this->generateSlug($data["title"]);
+
         return $this->noteRepository->store($data);
     }
 
@@ -32,6 +34,11 @@ class NoteService
         return $this->noteRepository->get($id);
     }
 
+    public function getBySlug($slug)
+    {
+        return $this->noteRepository->getBySlug($slug);
+    }
+
     public function listByTitle(string $title)
     {
         return $this->noteRepository->listByTitle($title);
@@ -39,7 +46,7 @@ class NoteService
 
     public function updateTitleById(int $id, $title)
     {
-        if ($this->get($id) == NULL){
+        if ($this->get($id) == NULL) {
             throw new DomainException(["Note not found"], 404);
         }
 
@@ -52,7 +59,7 @@ class NoteService
 
     public function updateContentById(int $id, $content)
     {
-        if ($this->get($id) == NULL){
+        if ($this->get($id) == NULL) {
             throw new DomainException(["Note not found"], 404);
         }
 
@@ -65,7 +72,7 @@ class NoteService
 
     public function delete($id)
     {
-        if ($this->get($id) == NULL){
+        if ($this->get($id) == NULL) {
             throw new DomainException(["Note not found"], 404);
         }
 
@@ -86,5 +93,10 @@ class NoteService
         if (!empty($errors)) {
             throw new DomainException($errors, 400);
         }
+    }
+
+    public function generateSlug(string $title)
+    {
+        return \Str::slug($title) . mb_substr(md5(microtime()), 0, 4);
     }
 }

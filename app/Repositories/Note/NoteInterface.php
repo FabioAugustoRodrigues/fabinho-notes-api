@@ -12,6 +12,7 @@ interface NoteInterface
     public function store(array $data);
     public function getList();
     public function get($id);
+    public function getBySlug(string $slug);
     public function listByTitle(string $title);
     public function updateTitleById(int $id, string $title);
     public function updateContentById(int $id, string $content);
