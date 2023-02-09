@@ -36,6 +36,11 @@ class NoteController extends BaseController
         return $this->sendResponse($this->noteService->get($id), "", 200);
     }
 
+    public function getBySlug($slug)
+    {
+        return $this->sendResponse($this->noteService->getBySlug($slug), "", 200);
+    }
+
     public function listByTitle($title)
     {
         return $this->sendResponse($this->noteService->listByTitle($title), "", 200);
