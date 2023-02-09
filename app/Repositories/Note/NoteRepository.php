@@ -5,7 +5,7 @@ namespace App\Repositories\Note;
 use App\Models\Note;
 use App\Repositories\Note\NoteInterface;
 
-class NoteRepositoryEloquent implements NoteInterface
+class NoteRepository implements NoteInterface
 {
 
     protected $note;

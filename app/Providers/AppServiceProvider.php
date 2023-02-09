@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Note;
-use App\Repositories\Note\NoteRepositoryEloquent;
+use App\Repositories\Note\NoteRepository;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -15,9 +15,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('App\Repositories\Note\NoteRepositoryInterface', 'App\Repositories\Note\NoteRepositoryEloquent');
-        $this->app->bind('App\Repositories\Note\NoteRepositoryInterface', function(){
-            return new NoteRepositoryEloquent(new Note());
+        $this->app->bind('App\Repositories\Note\NoteInterface', 'App\Repositories\Note\NoteRepository');
+        $this->app->bind('App\Repositories\Note\NoteInterface', function(){
+            return new NoteRepository(new Note());
         });
     }
 
