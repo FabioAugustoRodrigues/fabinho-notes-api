@@ -37,6 +37,19 @@ class NoteService
         return $this->noteRepository->listByTitle($title);
     }
 
+    public function updateTitleById(int $id, $title)
+    {
+        if ($this->get($id) == NULL){
+            throw new DomainException(["Note not found"], 404);
+        }
+
+        if ($title == NULL || empty($title) || strlen($title) > 255) {
+            throw new DomainException(["Invalid title"], 400);
+        }
+
+        return $this->noteRepository->updateTitleById($id, $title);
+    }
+
     public function validateNote(array $data)
     {
         $errors = [];

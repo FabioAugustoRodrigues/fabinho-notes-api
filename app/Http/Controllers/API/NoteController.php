@@ -41,4 +41,10 @@ class NoteController extends BaseController
         return $this->sendResponse($this->noteService->listByTitle($title), "", 200);
     }
 
+    public function updateTitleById(Request $request, $id)
+    {
+        $title = $request->title;
+        return $this->sendResponse($this->noteService->updateTitleById($id, $title), "", 200);
+    }
+
 }

@@ -12,5 +12,6 @@ interface NoteInterface {
     public function getList();
     public function get($id);
     public function listByTitle(string $title);
+    public function updateTitleById(int $id, string $title);
 
 }
