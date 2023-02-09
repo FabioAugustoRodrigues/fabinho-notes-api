@@ -29,5 +29,9 @@ class NoteRepository implements NoteInterface
     {
         return $this->note->find($id);
     }
-    
+
+    public function listByTitle(string $title)
+    {
+        return $this->note->where('title', 'like', '%' . $title . '%')->get();
+    }
 }

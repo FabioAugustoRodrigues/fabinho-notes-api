@@ -32,6 +32,11 @@ class NoteService
         return $this->noteRepository->get($id);
     }
 
+    public function listByTitle(string $title)
+    {
+        return $this->noteRepository->listByTitle($title);
+    }
+
     public function validateNote(array $data)
     {
         $errors = [];

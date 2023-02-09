@@ -11,5 +11,6 @@ interface NoteInterface {
     public function store(array $data);
     public function getList();
     public function get($id);
+    public function listByTitle(string $title);
 
 }

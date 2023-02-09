@@ -22,4 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 ### NOTES URLS ###
 Route::get('/notes', [NoteController::class, 'index']);
 Route::get('/notes/{id}', [NoteController::class, 'show']);
+Route::get('/notes/title/{title}', [NoteController::class, 'listByTitle']);
 Route::post('/notes', [NoteController::class, 'store']);
