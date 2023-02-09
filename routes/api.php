@@ -26,3 +26,4 @@ Route::get('/notes/title/{title}', [NoteController::class, 'listByTitle']);
 Route::post('/notes', [NoteController::class, 'store']);
 Route::patch('/notes/{id}/title', [NoteController::class, 'updateTitleById']);
 Route::patch('/notes/{id}/content', [NoteController::class, 'updateContentById']);
+Route::delete('/notes/{id}', [NoteController::class, 'delete']);

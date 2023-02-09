@@ -63,6 +63,15 @@ class NoteService
         return $this->noteRepository->updateContentById($id, $content);
     }
 
+    public function delete($id)
+    {
+        if ($this->get($id) == NULL){
+            throw new DomainException(["Note not found"], 404);
+        }
+
+        return $this->noteRepository->delete($id);
+    }
+
     public function validateNote(array $data)
     {
         $errors = [];

@@ -15,4 +15,5 @@ interface NoteInterface
     public function listByTitle(string $title);
     public function updateTitleById(int $id, string $title);
     public function updateContentById(int $id, string $content);
+    public function delete(int $id);
 }

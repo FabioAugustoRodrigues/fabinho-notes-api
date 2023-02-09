@@ -53,4 +53,9 @@ class NoteController extends BaseController
         return $this->sendResponse($this->noteService->updateContentById($id, $content), "", 200);
     }
 
+    public function delete($id)
+    {
+        return $this->sendResponse($this->noteService->delete($id), "", 204);
+    }
+
 }

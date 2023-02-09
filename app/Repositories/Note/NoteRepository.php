@@ -44,4 +44,9 @@ class NoteRepository implements NoteInterface
     {
         return $this->note->where('id', $id)->update(['content' => $content]) == 1;
     }
+
+    public function delete(int $id)
+    {
+        return $this->note->where('id', $id)->delete();
+    }
 }
