@@ -25,3 +25,4 @@ Route::get('/notes/{id}', [NoteController::class, 'show']);
 Route::get('/notes/title/{title}', [NoteController::class, 'listByTitle']);
 Route::post('/notes', [NoteController::class, 'store']);
 Route::patch('/notes/{id}/title', [NoteController::class, 'updateTitleById']);
+Route::patch('/notes/{id}/content', [NoteController::class, 'updateContentById']);

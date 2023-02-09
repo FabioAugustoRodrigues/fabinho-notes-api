@@ -50,6 +50,19 @@ class NoteService
         return $this->noteRepository->updateTitleById($id, $title);
     }
 
+    public function updateContentById(int $id, $content)
+    {
+        if ($this->get($id) == NULL){
+            throw new DomainException(["Note not found"], 404);
+        }
+
+        if ($content == NULL || empty($content)) {
+            throw new DomainException(["Invalid content"], 400);
+        }
+
+        return $this->noteRepository->updateContentById($id, $content);
+    }
+
     public function validateNote(array $data)
     {
         $errors = [];

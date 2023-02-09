@@ -39,4 +39,9 @@ class NoteRepository implements NoteInterface
     {
         return $this->note->where('id', $id)->update(['title' => $title]) == 1;
     }
+
+    public function updateContentById(int $id, string $content)
+    {
+        return $this->note->where('id', $id)->update(['content' => $content]) == 1;
+    }
 }

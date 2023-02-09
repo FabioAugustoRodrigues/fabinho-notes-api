@@ -4,7 +4,8 @@ namespace App\Repositories\Note;
 
 use App\Models\Note;
 
-interface NoteInterface {
+interface NoteInterface
+{
 
     public function __construct(Note $note);
 
@@ -13,5 +14,5 @@ interface NoteInterface {
     public function get($id);
     public function listByTitle(string $title);
     public function updateTitleById(int $id, string $title);
-
+    public function updateContentById(int $id, string $content);
 }
