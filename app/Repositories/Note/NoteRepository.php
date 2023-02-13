@@ -22,7 +22,9 @@ class NoteRepository implements NoteInterface
 
     public function getList()
     {
-        return $this->note->all();
+        return $this->note::whereNull('note_id')
+            ->with('childNotes')
+            ->get();
     }
 
     public function get($id)

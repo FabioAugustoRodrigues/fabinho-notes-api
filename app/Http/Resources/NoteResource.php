@@ -2,10 +2,13 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Note;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class NoteResource extends JsonResource
 {
+    public static $wrap = null;
+    
     /**
      * Transform the resource into an array.
      *
@@ -21,7 +24,10 @@ class NoteResource extends JsonResource
             "title" => $this->title,
             "content" => $this->content,
             "created_at" => $this->created_at,
-            "updated_at" => $this->updated_at
+            "updated_at" => $this->updated_at,
+            "child_notes" => Note::where('note_id', $this->id)
+                ->with('childNotes')
+                ->get()
         ];
     }
 }
