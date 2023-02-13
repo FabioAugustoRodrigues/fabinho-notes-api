@@ -25,12 +25,13 @@ class NoteController extends BaseController
 
     public function store(Request $request)
     {
-        $adminArray = [
+        $noteArray = [
             'title' => $request->title,
-            'content' => $request->content
+            'content' => $request->content,
+            'note_id' => isset($request->note_id) ? $request->note_id : NULL
         ];
 
-        return $this->sendResponse($this->noteService->store($adminArray), "", 201);
+        return $this->sendResponse(new NoteResource($this->noteService->store($noteArray)), "", 201);
     }
 
     public function show($id)

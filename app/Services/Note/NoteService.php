@@ -82,6 +82,11 @@ class NoteService
     public function validateNote(array $data)
     {
         $errors = [];
+        if ($data["note_id"] != NULL && $this->get($data["note_id"]) == NULL) {
+            // array_push($errors, "Note not found");
+            throw new DomainException(["Note not found"], 404);
+        }
+
         if (!isset($data["title"]) || empty($data["title"]) || strlen($data["title"]) > 255) {
             array_push($errors, "Invalid title");
         }
