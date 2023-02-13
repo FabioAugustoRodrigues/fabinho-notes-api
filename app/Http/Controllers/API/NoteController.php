@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\API\BaseController;
+use App\Http\Resources\NoteCollection;
+use App\Http\Resources\NoteResource;
 use App\Services\Note\NoteService;
 use Illuminate\Http\Request;
 
@@ -18,7 +20,7 @@ class NoteController extends BaseController
 
     public function index()
     {
-        return $this->sendResponse($this->noteService->getList(), "", 200);
+        return $this->sendResponse(new NoteCollection($this->noteService->getList()), "", 200);
     }
 
     public function store(Request $request)
@@ -33,17 +35,17 @@ class NoteController extends BaseController
 
     public function show($id)
     {
-        return $this->sendResponse($this->noteService->get($id), "", 200);
+        return $this->sendResponse(new NoteResource($this->noteService->get($id)), "", 200);
     }
 
     public function getBySlug($slug)
     {
-        return $this->sendResponse($this->noteService->getBySlug($slug), "", 200);
+        return $this->sendResponse(new NoteResource($this->noteService->getBySlug($slug)), "", 200);
     }
 
     public function listByTitle($title)
     {
-        return $this->sendResponse($this->noteService->listByTitle($title), "", 200);
+        return $this->sendResponse(new NoteCollection($this->noteService->listByTitle($title)), "", 200);
     }
 
     public function updateTitleById(Request $request, $id)
@@ -62,5 +64,4 @@ class NoteController extends BaseController
     {
         return $this->sendResponse($this->noteService->delete($id), "", 204);
     }
-
 }
