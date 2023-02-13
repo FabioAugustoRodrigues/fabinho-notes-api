@@ -18,6 +18,7 @@ class UserService
     public function store(array $data)
     {
         $this->validateUser($data);
+        $data["password"] = password_hash($data["password"], PASSWORD_DEFAULT);
 
         return $this->userRepository->store($data);
     }

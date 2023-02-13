@@ -22,7 +22,7 @@ class UserRepository implements UserInterface
 
     public function update(array $data, int $id)
     {
-        return $this->user->where('id', $id)->update(['name' => $data['name']]);
+        return $this->user->where('id', $id)->update(['name' => $data['name']])==1;
     }
 
     public function getList()
