@@ -16,16 +16,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
 ### USERS URLS ###
 Route::get('/users', [UserController::class, 'index']);
 Route::get('/users/{id}', [UserController::class, 'show']);
-Route::post('/users', [UserController::class, 'store']);
 Route::put('/users/{id}', [UserController::class, 'update']);
 Route::delete('/users/{id}', [UserController::class, 'delete']);
+Route::post('/auth/login', [UserController::class, 'login']);
+Route::post('/auth/logout', [UserController::class, 'logout'])->middleware('auth:sanctum');
+Route::post('/auth/register', [UserController::class, 'store']);
 
 ### NOTES URLS ###
 Route::get('/notes', [NoteController::class, 'index']);
@@ -36,3 +35,7 @@ Route::post('/notes', [NoteController::class, 'store']);
 Route::patch('/notes/{id}/title', [NoteController::class, 'updateTitleById']);
 Route::patch('/notes/{id}/content', [NoteController::class, 'updateContentById']);
 Route::delete('/notes/{id}', [NoteController::class, 'delete']);
+
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});

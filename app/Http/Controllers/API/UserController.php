@@ -56,4 +56,24 @@ class UserController extends BaseController
     {
         return $this->sendResponse($this->userService->delete($id), "", 204);
     }
+
+    public function login(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+
+        if (!auth()->attempt($credentials)) {
+            abort(401, 'Invalid Credentials');
+        }
+
+        $token = auth()->user()->createToken('auth_token');
+
+        return $this->sendResponse(['token' => $token->plainTextToken], "", 200);
+    }
+
+    public function logout()
+    {
+        auth()->user()->currentAccessToken()->delete();
+
+        return $this->sendResponse([], "", 204);
+    }
 }
