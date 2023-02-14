@@ -47,9 +47,13 @@ class NoteService
         return $this->noteRepository->listByTitle($title);
     }
 
-    public function updateTitleById(int $id, $title)
+    public function updateTitleById(int $id, int $user_id, $title)
     {
         if ($this->get($id) == NULL) {
+            throw new DomainException(["Note not found"], 404);
+        }
+        
+        if (!$this->noteBelongsToUser($id, $user_id)){
             throw new DomainException(["Note not found"], 404);
         }
 
@@ -60,9 +64,13 @@ class NoteService
         return $this->noteRepository->updateTitleById($id, $title);
     }
 
-    public function updateContentById(int $id, $content)
+    public function updateContentById(int $id, int $user_id, $content)
     {
         if ($this->get($id) == NULL) {
+            throw new DomainException(["Note not found"], 404);
+        }
+
+        if (!$this->noteBelongsToUser($id, $user_id)){
             throw new DomainException(["Note not found"], 404);
         }
 
@@ -73,9 +81,13 @@ class NoteService
         return $this->noteRepository->updateContentById($id, $content);
     }
 
-    public function delete($id)
+    public function delete($id, int $user_id)
     {
         if ($this->get($id) == NULL) {
+            throw new DomainException(["Note not found"], 404);
+        }
+        
+        if (!$this->noteBelongsToUser($id, $user_id)){
             throw new DomainException(["Note not found"], 404);
         }
 
@@ -110,5 +122,10 @@ class NoteService
     public function generateSlug(string $title)
     {
         return \Str::slug($title) . mb_substr(md5(microtime()), 0, 4);
+    }
+
+    public function noteBelongsToUser(int $id, int $user_id): bool
+    {
+        return $this->noteRepository->getByIdAndUserId($id, $user_id) != NULL;
     }
 }

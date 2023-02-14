@@ -16,25 +16,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+## AUTH URLS ###
+Route::post('/auth/login', [UserController::class, 'login']);
+Route::post('/auth/logout', [UserController::class, 'logout'])->middleware('auth:sanctum');
+Route::post('/auth/register', [UserController::class, 'store']);
 
 ### USERS URLS ###
 Route::get('/users', [UserController::class, 'index']);
 Route::get('/users/{id}', [UserController::class, 'show']);
-Route::put('/users/{id}', [UserController::class, 'update']);
-Route::delete('/users/{id}', [UserController::class, 'delete']);
-Route::post('/auth/login', [UserController::class, 'login']);
-Route::post('/auth/logout', [UserController::class, 'logout'])->middleware('auth:sanctum');
-Route::post('/auth/register', [UserController::class, 'store']);
+
+Route::put('/users', [UserController::class, 'update'])->middleware('auth:sanctum');;
+Route::delete('/users', [UserController::class, 'delete'])->middleware('auth:sanctum');;
+
+Route::post('/users/notes', [NoteController::class, 'store'])->middleware('auth:sanctum');
+Route::patch('/users/notes/{id}/title', [NoteController::class, 'updateTitleById'])->middleware('auth:sanctum');
+Route::patch('/users/notes/{id}/content', [NoteController::class, 'updateContentById'])->middleware('auth:sanctum');
+Route::delete('/users/notes/{id}', [NoteController::class, 'delete'])->middleware('auth:sanctum');
 
 ### NOTES URLS ###
 Route::get('/notes', [NoteController::class, 'index']);
 Route::get('/notes/{id}', [NoteController::class, 'show']);
 Route::get('/notes/slug/{slug}', [NoteController::class, 'getBySlug']);
 Route::get('/notes/title/{title}', [NoteController::class, 'listByTitle']);
-Route::post('/notes', [NoteController::class, 'store']);
-Route::patch('/notes/{id}/title', [NoteController::class, 'updateTitleById']);
-Route::patch('/notes/{id}/content', [NoteController::class, 'updateContentById']);
-Route::delete('/notes/{id}', [NoteController::class, 'delete']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

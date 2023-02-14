@@ -29,7 +29,7 @@ class NoteController extends BaseController
             'title' => $request->title,
             'content' => $request->content,
             'note_id' => isset($request->note_id) ? $request->note_id : NULL,
-            'user_id' => $request->user_id
+            'user_id' => auth()->user()->id
         ];
 
         return $this->sendResponse(new NoteResource($this->noteService->store($noteArray)), "", 201);
@@ -53,17 +53,17 @@ class NoteController extends BaseController
     public function updateTitleById(Request $request, $id)
     {
         $title = $request->title;
-        return $this->sendResponse($this->noteService->updateTitleById($id, $title), "", 200);
+        return $this->sendResponse($this->noteService->updateTitleById($id, auth()->user()->id, $title), "", 200);
     }
 
     public function updateContentById(Request $request, $id)
     {
         $content = $request->content;
-        return $this->sendResponse($this->noteService->updateContentById($id, $content), "", 200);
+        return $this->sendResponse($this->noteService->updateContentById($id, auth()->user()->id, $content), "", 200);
     }
 
     public function delete($id)
     {
-        return $this->sendResponse($this->noteService->delete($id), "", 204);
+        return $this->sendResponse($this->noteService->delete($id, auth()->user()->id), "", 204);
     }
 }

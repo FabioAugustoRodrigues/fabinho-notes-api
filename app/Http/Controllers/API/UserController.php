@@ -44,17 +44,18 @@ class UserController extends BaseController
         return $this->sendResponse(new UserResource($this->userService->getByEmail($email)), "", 200);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         $data = [
             "name" => $request->name
         ];
-        return $this->sendResponse($this->userService->update($data, $id), "", 200);
+
+        return $this->sendResponse($this->userService->update($data, auth()->user()->id), "", 200);
     }
 
-    public function delete($id)
+    public function delete()
     {
-        return $this->sendResponse($this->userService->delete($id), "", 204);
+        return $this->sendResponse($this->userService->delete(auth()->user()->id), "", 204);
     }
 
     public function login(Request $request)

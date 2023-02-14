@@ -37,6 +37,11 @@ class NoteRepository implements NoteInterface
         return $this->note->where('slug', $slug)->get();
     }
 
+    public function getByIdAndUserId(int $id, int $user_id)
+    {
+        return $this->note->where('id', $id)->where('user_id', $user_id)->get();
+    }
+
     public function listByTitle(string $title)
     {
         return $this->note->where('title', 'like', '%' . $title . '%')->get();
