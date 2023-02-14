@@ -28,7 +28,8 @@ class NoteController extends BaseController
         $noteArray = [
             'title' => $request->title,
             'content' => $request->content,
-            'note_id' => isset($request->note_id) ? $request->note_id : NULL
+            'note_id' => isset($request->note_id) ? $request->note_id : NULL,
+            'user_id' => $request->user_id
         ];
 
         return $this->sendResponse(new NoteResource($this->noteService->store($noteArray)), "", 201);

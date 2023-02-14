@@ -4,15 +4,18 @@ namespace App\Services\Note;
 
 use App\Exceptions\DomainException;
 use App\Repositories\Note\NoteInterface;
+use App\Services\User\UserService;
 
 class NoteService
 {
 
     private $noteRepository;
+    private $userService;
 
-    public function __construct(NoteInterface $noteRepository)
+    public function __construct(NoteInterface $noteRepository, UserService $userService)
     {
         $this->noteRepository = $noteRepository;
+        $this->userService = $userService;
     }
 
     public function store(array $data)
@@ -85,6 +88,10 @@ class NoteService
         if ($data["note_id"] != NULL && $this->get($data["note_id"]) == NULL) {
             // array_push($errors, "Note not found");
             throw new DomainException(["Note not found"], 404);
+        }
+
+        if ($this->userService->get($data["user_id"]) == NULL) {
+            throw new DomainException(["User not found"], 404);
         }
 
         if (!isset($data["title"]) || empty($data["title"]) || strlen($data["title"]) > 255) {
