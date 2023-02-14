@@ -47,6 +47,11 @@ class NoteRepository implements NoteInterface
         return $this->note->where('title', 'like', '%' . $title . '%')->get();
     }
 
+    public function listByUser(int $user_id)
+    {
+        return $this->note->where('user_id', $user_id)->get();
+    }
+
     public function updateTitleById(int $id, string $title)
     {
         return $this->note->where('id', $id)->update(['title' => $title]) == 1;

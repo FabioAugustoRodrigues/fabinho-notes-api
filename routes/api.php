@@ -28,6 +28,7 @@ Route::get('/users/{id}', [UserController::class, 'show']);
 Route::put('/users', [UserController::class, 'update'])->middleware('auth:sanctum');;
 Route::delete('/users', [UserController::class, 'delete'])->middleware('auth:sanctum');;
 
+Route::get('/users/{user_id}/notes', [NoteController::class, 'listByUser']);
 Route::post('/users/notes', [NoteController::class, 'store'])->middleware('auth:sanctum');
 Route::patch('/users/notes/{id}/title', [NoteController::class, 'updateTitleById'])->middleware('auth:sanctum');
 Route::patch('/users/notes/{id}/content', [NoteController::class, 'updateContentById'])->middleware('auth:sanctum');

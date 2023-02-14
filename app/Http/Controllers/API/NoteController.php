@@ -50,6 +50,11 @@ class NoteController extends BaseController
         return $this->sendResponse(new NoteCollection($this->noteService->listByTitle($title)), "", 200);
     }
 
+    public function listByUser($user_id)
+    {
+        return $this->sendResponse(new NoteCollection($this->noteService->listByUser($user_id)), "", 200);
+    }
+
     public function updateTitleById(Request $request, $id)
     {
         $title = $request->title;

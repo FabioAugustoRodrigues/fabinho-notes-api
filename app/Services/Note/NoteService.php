@@ -47,6 +47,14 @@ class NoteService
         return $this->noteRepository->listByTitle($title);
     }
 
+    public function listByUser(int $user_id) {
+        if ($this->userService->get($user_id) == NULL) {
+            throw new DomainException(["User not found"], 404);
+        }
+
+        return $this->noteRepository->listByUser($user_id);
+    }
+
     public function updateTitleById(int $id, int $user_id, $title)
     {
         if ($this->get($id) == NULL) {
