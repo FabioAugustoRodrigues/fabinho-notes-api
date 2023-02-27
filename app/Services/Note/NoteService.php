@@ -3,8 +3,10 @@
 namespace App\Services\Note;
 
 use App\Exceptions\DomainException;
+use App\Models\Note;
 use App\Repositories\Note\NoteInterface;
 use App\Services\User\UserService;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class NoteService
 {
@@ -29,7 +31,11 @@ class NoteService
 
     public function getList()
     {
-        return $this->noteRepository->getList();
+        $notes = QueryBuilder::for(Note::class)
+            ->allowedFilters('title')
+            ->get();
+
+        return $notes;
     }
 
     public function get($id)
@@ -47,7 +53,8 @@ class NoteService
         return $this->noteRepository->listByTitle($title);
     }
 
-    public function listByUser(int $user_id) {
+    public function listByUser(int $user_id)
+    {
         if ($this->userService->get($user_id) == NULL) {
             throw new DomainException(["User not found"], 404);
         }
@@ -60,8 +67,8 @@ class NoteService
         if ($this->get($id) == NULL) {
             throw new DomainException(["Note not found"], 404);
         }
-        
-        if (!$this->noteBelongsToUser($id, $user_id)){
+
+        if (!$this->noteBelongsToUser($id, $user_id)) {
             throw new DomainException(["Note not found"], 404);
         }
 
@@ -78,7 +85,7 @@ class NoteService
             throw new DomainException(["Note not found"], 404);
         }
 
-        if (!$this->noteBelongsToUser($id, $user_id)){
+        if (!$this->noteBelongsToUser($id, $user_id)) {
             throw new DomainException(["Note not found"], 404);
         }
 
@@ -94,8 +101,8 @@ class NoteService
         if ($this->get($id) == NULL) {
             throw new DomainException(["Note not found"], 404);
         }
-        
-        if (!$this->noteBelongsToUser($id, $user_id)){
+
+        if (!$this->noteBelongsToUser($id, $user_id)) {
             throw new DomainException(["Note not found"], 404);
         }
 
