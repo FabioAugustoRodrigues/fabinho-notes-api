@@ -3,7 +3,9 @@
 namespace App\Services\User;
 
 use App\Exceptions\DomainException;
+use App\Models\User;
 use App\Repositories\User\UserInterface;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class UserService
 {
@@ -25,7 +27,9 @@ class UserService
 
     public function getList()
     {
-        return $this->userRepository->getList();
+        return QueryBuilder::for(User::class)
+            ->allowedFilters('name')
+            ->get();
     }
 
     public function get($id)
